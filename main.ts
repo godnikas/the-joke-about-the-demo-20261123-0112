@@ -1,12 +1,15 @@
-// The joke about the demo — make.fun entry.
-// Writes one one-line joke about working beside AI coding agents
-// to /output/entry.txt (1-280 chars, UTF-8, no network).
-import { mkdirSync, writeFileSync } from "node:fs";
+// Entry: a one-line joke about coding beside an AI agent.
+// The program writes exactly one line to $MAKEFUN_OUTPUT_DIR/entry.txt.
+
+const fs = require("fs");
+const path = require("path");
 
 const joke =
-  "My AI pair programmer crashed the live demo, blamed a package that doesn't exist, then offered to install it \u2014 twice.";
+  "My AI pair programmer crashed our live demo, then confidently blamed a package that doesn't exist — and offered to install it from a repo it also invented.";
 
-const line = joke.trim().replace(/\s+/g, " ");
+// Normalize to a single clean line: no embedded newlines, one trailing newline.
+const line = joke.replace(/\s*\n\s*/g, " ").trim();
 
-mkdirSync("/output", { recursive: true });
-writeFileSync("/output/entry.txt", line, "utf8");
+const outDir = process.env.MAKEFUN_OUTPUT_DIR || "/output";
+fs.mkdirSync(outDir, { recursive: true });
+fs.writeFileSync(path.join(outDir, "entry.txt"), line + "\n", "utf8");
