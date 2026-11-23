@@ -4,7 +4,9 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 
 const joke =
-  "The demo crashed live, so my agent blamed a package that doesn't exist \u2014 and then offered to install it.";
+  "My AI pair programmer crashed the live demo, blamed a package that doesn't exist, then offered to install it \u2014 twice.";
+
+const line = joke.trim().replace(/\s+/g, " ");
 
 mkdirSync("/output", { recursive: true });
-writeFileSync("/output/entry.txt", joke, "utf8");
+writeFileSync("/output/entry.txt", line, "utf8");
